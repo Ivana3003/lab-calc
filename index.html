@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Fast and accurate professional chemistry calculator for molarity, dilution, and unit conversions. Streamline your lab work and get precise results in seconds. Try it for free!"
+    />
+    <title>LabCalc - Solution Preparator</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="icon" type="image/png" href="images/flask.png" />
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1>LabCalc</h1>
+        <p>Professional Chemistry Tool</p>
+      </header>
+
+      <!-- Error Toast Container -->
+      <div id="error-toast" class="error-toast hidden"></div>
+
+      <nav class="tabs" role="tablist" aria-label="Calculator sections">
+        <button
+          class="tab-link active"
+          data-tab="molarity"
+          role="tab"
+          aria-selected="true"
+        >
+          Molarity
+        </button>
+        <button
+          class="tab-link"
+          data-tab="mass-percent"
+          role="tab"
+          aria-selected="false"
+        >
+          Mass %
+        </button>
+        <button
+          class="tab-link"
+          data-tab="dilution"
+          role="tab"
+          aria-selected="false"
+        >
+          Dilution
+        </button>
+        <button
+          class="tab-link"
+          data-tab="conversions"
+          role="tab"
+          aria-selected="false"
+        >
+          Conversions
+        </button>
+      </nav>
+
+      <section id="molarity" class="tab-content active" role="tabpanel">
+        <form class="calc-form" data-calc="molarity">
+          <div class="input-group">
+            <label for="mol-c">Concentration (c) [mol/dm³]</label>
+            <input type="number" id="mol-c" step="any" min="0" />
+          </div>
+          <div class="input-group">
+            <label for="mol-v">Volume (V)</label>
+            <div class="row">
+              <input type="number" id="mol-v" step="any" min="0" />
+              <select id="mol-v-unit" aria-label="Volume unit">
+                <option value="dm3">dm³</option>
+                <option value="cm3">cm³</option>
+              </select>
+            </div>
+          </div>
+          <div class="input-group">
+            <label for="mol-m">Molar Mass (M) [g/mol]</label>
+            <input type="number" id="mol-m" step="any" min="0" />
+          </div>
+          <button type="submit" class="calc-btn">Calculate Mass</button>
+        </form>
+        <div class="result" id="res-molarity" aria-live="polite">
+          mass: <span class="output">—</span> g
+          <button
+            type="button"
+            class="copy-btn"
+            data-copy="res-molarity"
+            aria-label="Copy result"
+          >
+            📋
+          </button>
+        </div>
+      </section>
+
+      <section id="mass-percent" class="tab-content" role="tabpanel">
+        <form class="calc-form" data-calc="mass-percent">
+          <div class="input-group">
+            <label for="perc-w">Mass Percent (ω) [%]</label>
+            <input
+              type="number"
+              id="perc-w"
+              step="any"
+              min="0"
+              max="100"
+              placeholder="e.g. 10"
+            />
+          </div>
+          <div class="input-group">
+            <label for="perc-mr">Desired Solution Mass (m_r) [g]</label>
+            <input
+              type="number"
+              id="perc-mr"
+              step="any"
+              min="0"
+              placeholder="e.g. 250"
+            />
+          </div>
+          <button type="submit" class="calc-btn">Calculate Components</button>
+        </form>
+        <div class="result" id="res-percent" aria-live="polite">
+          solute (m<sub>s</sub>): <span class="output-s">—</span> g | water:
+          <span class="output-w">—</span> g
+          <button
+            type="button"
+            class="copy-btn"
+            data-copy="res-percent"
+            aria-label="Copy result"
+          >
+            📋
+          </button>
+        </div>
+      </section>
+
+      <section id="dilution" class="tab-content" role="tabpanel">
+        <form class="calc-form" data-calc="dilution">
+          <div class="input-group">
+            <label for="dil-c1">Stock Concentration (c1)</label>
+            <input
+              type="number"
+              id="dil-c1"
+              step="any"
+              min="0"
+              placeholder="Concentrated"
+            />
+          </div>
+          <div class="input-group">
+            <label for="dil-c2">Desired Concentration (c2)</label>
+            <input
+              type="number"
+              id="dil-c2"
+              step="any"
+              min="0"
+              placeholder="Diluted"
+            />
+          </div>
+          <div class="input-group">
+            <label for="dil-v2">Final Volume (V2)</label>
+            <div class="row">
+              <input type="number" id="dil-v2" step="any" min="0" />
+              <select id="dil-v2-unit" aria-label="Volume unit">
+                <option value="cm3">cm³</option>
+                <option value="dm3">dm³</option>
+              </select>
+            </div>
+          </div>
+          <button type="submit" class="calc-btn">Calculate Stock Volume</button>
+        </form>
+        <div class="result" id="res-dilution" aria-live="polite">
+          stock (V<sub>1</sub>): <span class="output-v1">—</span> cm³ | water:
+          <span class="output-water">—</span> cm³
+          <button
+            type="button"
+            class="copy-btn"
+            data-copy="res-dilution"
+            aria-label="Copy result"
+          >
+            📋
+          </button>
+        </div>
+      </section>
+
+      <section id="conversions" class="tab-content" role="tabpanel">
+        <div class="conv-card">
+          <h4>molar (c) ↔ mass concentration (γ)</h4>
+          <form class="calc-form" data-calc="c-to-gamma">
+            <div class="row">
+              <input
+                type="number"
+                id="conv-c"
+                placeholder="c [mol/dm³]"
+                min="0"
+                step="any"
+              />
+              <input
+                type="number"
+                id="conv-m-mass"
+                placeholder="M [g/mol]"
+                min="0"
+                step="any"
+              />
+            </div>
+            <button type="submit" class="calc-btn">Convert to γ</button>
+          </form>
+          <div class="result-mini" id="res-gamma" aria-live="polite">
+            result: <span class="output">—</span> g/dm³
+            <button
+              type="button"
+              class="copy-btn"
+              data-copy="res-gamma"
+              aria-label="Copy result"
+            >
+              📋
+            </button>
+          </div>
+        </div>
+
+        <div class="conv-card">
+          <h4>mass % (ω) → molar concentration (c)</h4>
+          <form class="calc-form" data-calc="w-to-c">
+            <div class="input-group">
+              <input
+                type="number"
+                id="conv-w-to-c"
+                placeholder="ω [%]"
+                min="0"
+                max="100"
+                step="any"
+              />
+            </div>
+            <div class="row">
+              <input
+                type="number"
+                id="conv-rho-to-c"
+                placeholder="ρ [g/cm³]"
+                min="0"
+                step="any"
+              />
+              <input
+                type="number"
+                id="conv-m-molar"
+                placeholder="M [g/mol]"
+                min="0"
+                step="any"
+              />
+            </div>
+            <button type="submit" class="calc-btn">Convert to c</button>
+          </form>
+          <div class="result-mini" id="res-w-to-c" aria-live="polite">
+            result: <span class="output">—</span> mol/dm³
+            <button
+              type="button"
+              class="copy-btn"
+              data-copy="res-w-to-c"
+              aria-label="Copy result"
+            >
+              📋
+            </button>
+          </div>
+        </div>
+
+        <div class="conv-card">
+          <h4>mass % (ω) → mass concentration (γ)</h4>
+          <form class="calc-form" data-calc="w-to-gamma">
+            <div class="row">
+              <input
+                type="number"
+                id="conv-w-to-gamma"
+                placeholder="ω [%]"
+                min="0"
+                max="100"
+                step="any"
+              />
+              <input
+                type="number"
+                id="conv-rho-to-gamma"
+                placeholder="ρ [g/cm³]"
+                min="0"
+                step="any"
+              />
+            </div>
+            <button type="submit" class="calc-btn">Convert to γ</button>
+          </form>
+          <div class="result-mini" id="res-w-to-gamma" aria-live="polite">
+            result: <span class="output">—</span> g/dm³
+            <button
+              type="button"
+              class="copy-btn"
+              data-copy="res-w-to-gamma"
+              aria-label="Copy result"
+            >
+              📋
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="js/main.js"></script>
+  </body>
+</html>

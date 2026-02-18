@@ -1,0 +1,337 @@
+/* 1. CSS Variables */
+:root {
+  --primary: #2c3e50;
+  --accent: #3498db;
+  --bg: #f4f7f6;
+  --white: #ffffff;
+  --border: #e0e0e0;
+  --error: #e74c3c;
+  --success: #27ae60;
+  --radius: 8px;
+  --transition: 0.3s ease;
+}
+
+/* 2. Global Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--primary);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
+
+main {
+  width: 100%;
+  max-width: 500px;
+  background: var(--white);
+  padding: 2rem;
+  border-radius: var(--radius);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+header h1 {
+  font-size: 1.8rem;
+  letter-spacing: 1px;
+  color: var(--primary);
+}
+
+header p {
+  font-size: 0.9rem;
+  color: #7f8c8d;
+  margin-top: 0.3rem;
+}
+
+/* 3. Navigation / Tabs */
+.tabs {
+  display: flex;
+  justify-content: space-around;
+  gap: 5px;
+  margin-bottom: 2rem;
+  border-bottom: 2px solid var(--border);
+  width: 100%;
+}
+
+.tab-link {
+  flex: 1;
+  padding: 12px 5px;
+  font-size: 0.9rem;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-weight: 600;
+  color: #95a5a6;
+  transition: var(--transition);
+  position: relative;
+}
+
+.tab-link:hover {
+  color: var(--accent);
+}
+
+.tab-link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.tab-link.active {
+  color: var(--accent);
+  border-bottom: 3px solid var(--accent);
+  margin-bottom: -2px;
+}
+
+/* 4. Form Elements */
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.calc-form {
+  margin-bottom: 1rem;
+}
+
+.input-group {
+  margin-bottom: 1.2rem;
+}
+
+label {
+  display: block;
+  font-size: 0.9rem;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.row {
+  display: flex;
+  gap: 10px;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 1rem;
+  transition: var(--transition);
+}
+
+input:focus,
+select:focus {
+  border-color: var(--accent);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: var(--transition);
+}
+
+button:hover {
+  background-color: #34495e;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+button:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* 5. Results Area */
+.result,
+.result-mini {
+  margin-top: 1.5rem;
+  padding: 15px;
+  background: #e8f4fd;
+  border-radius: var(--radius);
+  text-align: center;
+  font-weight: 600;
+  border-left: 4px solid var(--accent);
+}
+
+.result-mini {
+  margin-top: 10px;
+}
+
+.output,
+.output-s,
+.output-w,
+.output-v1,
+.output-water {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 1.2rem;
+  color: var(--accent);
+  font-weight: bold;
+}
+
+.copy-btn {
+  width: auto;
+  background: transparent;
+  color: var(--accent);
+  font-size: 1.1rem;
+  padding: 4px 10px;
+  margin-left: 10px;
+  box-shadow: none;
+}
+
+.copy-btn:hover {
+  background: rgba(52, 152, 219, 0.1);
+  transform: scale(1.1);
+}
+
+.copy-btn:focus-visible {
+  outline: 2px solid var(--accent);
+}
+
+.copy-btn.success {
+  color: var(--success);
+}
+
+/* 6. Conversion Cards */
+.conv-card {
+  background: #f9f9f9;
+  padding: 15px;
+  border-radius: var(--radius);
+  margin-bottom: 20px;
+  border-left: 4px solid var(--accent);
+}
+
+.conv-card h4 {
+  font-size: 0.95rem;
+  margin-bottom: 12px;
+  color: var(--primary);
+}
+
+/* 7. Error Toast */
+.error-toast {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--error);
+  color: white;
+  padding: 12px 24px;
+  border-radius: var(--radius);
+  box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);
+  font-weight: 600;
+  z-index: 1000;
+  animation: slideDown 0.3s ease;
+}
+
+.error-toast.hidden {
+  display: none;
+}
+
+@keyframes slideDown {
+  from { transform: translate(-50%, -100%); opacity: 0; }
+  to { transform: translate(-50%, 0); opacity: 1; }
+}
+
+/* 8. Responsive Design */
+@media (max-width: 600px) {
+  body {
+    padding: 10px;
+  }
+
+  main {
+    padding: 1.5rem;
+  }
+
+  header h1 {
+    font-size: 1.5rem;
+  }
+
+  .tabs {
+    gap: 3px;
+  }
+
+  .tab-link {
+    font-size: 0.8rem;
+    padding: 10px 3px;
+  }
+
+  input,
+  select,
+  button {
+    font-size: 0.95rem;
+  }
+
+  .output,
+  .output-s,
+  .output-w,
+  .output-v1,
+  .output-water {
+    font-size: 1rem;
+  }
+
+  .result,
+  .result-mini {
+    font-size: 0.9rem;
+    padding: 12px;
+  }
+}
+
+@media (max-width: 400px) {
+  .tabs {
+    flex-wrap: wrap;
+  }
+
+  .tab-link {
+    flex: 1 1 45%;
+    padding: 10px;
+  }
+}
+
+/* 9. Print Styles */
+@media print {
+  body {
+    background: white;
+  }
+
+  .tabs,
+  button {
+    display: none;
+  }
+
+  .result {
+    border: 1px solid #000;
+  }
+}
