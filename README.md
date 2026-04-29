@@ -48,6 +48,7 @@ This project demonstrates proficiency in:
 This project is under continuous development. Upcoming features include:
 
 - [ ] **Unit Testing:** Implementing a custom test suite to verify calculation accuracy against standard chemical benchmarks.
+- [x] **Unit Testing:** Jest test suite implemented to verify calculation accuracy for core formulas.
 - [ ] **Authentication:** Integration with **Firebase Auth** to allow users to save and retrieve their custom solution recipes.
 - [ ] **History Log:** A persistent record of recent calculations for experimental reproducibility.
 
@@ -56,6 +57,19 @@ This project is under continuous development. Upcoming features include:
 1. Clone the repository or download the source code.
 2. Open `index.html` in any modern web browser.
 3. Choose your calculation tab and start preparing your solutions with 100% confidence.
+
+## 🧪 Testing
+
+This project uses **Jest** for unit testing to ensure calculation accuracy.
+
+**Setup & Run Tests:**
+
+```bash
+npm install
+npm test
+```
+
+Tests verify the core calculation logic across molarity, dilution, mass percent, and concentration conversion functions.
 
 ---
 
