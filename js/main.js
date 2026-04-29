@@ -3,16 +3,18 @@
  * Modern ES6+ approach with event delegation and proper error handling
  */
 
-// Constants
-const UNITS = {
-  CM3_TO_DM3: 1000,
-  DM3_TO_CM3: 1000,
-};
-
 // State management
 const LabCalc = {
+  core: null,
   // Initialize app
   init() {
+    this.core = window.CalculatorCore;
+
+    if (!this.core) {
+      this.showError("Calculator module failed to load.");
+      return;
+    }
+
     this.setupEventListeners();
     this.setupKeyboardShortcuts();
   },
@@ -140,31 +142,31 @@ const LabCalc = {
     const values = this.validateInputs("mol-c", "mol-v", "mol-m");
     if (!values) return;
 
-    const [c, v, m] = values;
-    const unit = document.getElementById("mol-v-unit").value;
-    const vDm3 = unit === "cm3" ? v / UNITS.CM3_TO_DM3 : v;
-    const mass = c * vDm3 * m;
+    try {
+      const [c, v, m] = values;
+      const unit = document.getElementById("mol-v-unit").value;
+      const mass = this.core.calculateMolarityMass(c, v, m, unit);
 
-    this.updateResult("#res-molarity .output", mass);
+      this.updateResult("#res-molarity .output", mass);
+    } catch (error) {
+      this.showError(error.message);
+    }
   },
 
-  // 2. Mass Percent: ms = (ω/100) * mr
+  // 2. Mass Percent: ms = (w/100) * mr
   calculateMassPercent() {
     const values = this.validateInputs("perc-w", "perc-mr");
     if (!values) return;
 
-    const [w, mr] = values;
+    try {
+      const [w, mr] = values;
+      const { ms, mw } = this.core.calculateMassPercent(w, mr);
 
-    if (w > 100) {
-      this.showError("Mass percent cannot exceed 100%");
-      return;
+      this.updateResult("#res-percent .output-s", ms);
+      this.updateResult("#res-percent .output-w", mw);
+    } catch (error) {
+      this.showError(error.message);
     }
-
-    const ms = (w / 100) * mr;
-    const mw = mr - ms;
-
-    this.updateResult("#res-percent .output-s", ms);
-    this.updateResult("#res-percent .output-w", mw);
   },
 
   // 3. Dilution: c1V1 = c2V2
@@ -172,22 +174,16 @@ const LabCalc = {
     const values = this.validateInputs("dil-c1", "dil-c2", "dil-v2");
     if (!values) return;
 
-    const [c1, c2, v2] = values;
+    try {
+      const [c1, c2, v2] = values;
+      const unitV2 = document.getElementById("dil-v2-unit").value;
+      const { v1, vWater } = this.core.calculateDilution(c1, c2, v2, unitV2);
 
-    if (c2 > c1) {
-      this.showError(
-        "Desired concentration (c2) cannot be higher than stock (c1)",
-      );
-      return;
+      this.updateResult("#res-dilution .output-v1", v1.toFixed(2));
+      this.updateResult("#res-dilution .output-water", vWater.toFixed(2));
+    } catch (error) {
+      this.showError(error.message);
     }
-
-    const unitV2 = document.getElementById("dil-v2-unit").value;
-    const v2Cm3 = unitV2 === "dm3" ? v2 * UNITS.DM3_TO_CM3 : v2;
-    const v1 = (c2 * v2Cm3) / c1;
-    const vWater = v2Cm3 - v1;
-
-    this.updateResult("#res-dilution .output-v1", v1.toFixed(2));
-    this.updateResult("#res-dilution .output-water", vWater.toFixed(2));
   },
 
   // 4. Conversions: c → γ (γ = c * M)
@@ -195,10 +191,14 @@ const LabCalc = {
     const values = this.validateInputs("conv-c", "conv-m-mass");
     if (!values) return;
 
-    const [c, m] = values;
-    const gamma = c * m;
+    try {
+      const [c, m] = values;
+      const gamma = this.core.convertCToGamma(c, m);
 
-    this.updateResult("#res-gamma .output", gamma.toFixed(2));
+      this.updateResult("#res-gamma .output", gamma.toFixed(2));
+    } catch (error) {
+      this.showError(error.message);
+    }
   },
 
   // 5. Conversions: ω → c (c = (ω * ρ * 10) / M)
@@ -210,15 +210,14 @@ const LabCalc = {
     );
     if (!values) return;
 
-    const [w, rho, m] = values;
+    try {
+      const [w, rho, m] = values;
+      const c = this.core.convertWToC(w, rho, m);
 
-    if (w > 100) {
-      this.showError("Mass percent cannot exceed 100%");
-      return;
+      this.updateResult("#res-w-to-c .output", c);
+    } catch (error) {
+      this.showError(error.message);
     }
-
-    const c = (w * rho * 10) / m;
-    this.updateResult("#res-w-to-c .output", c);
   },
 
   // 6. Conversions: ω → γ (γ = ω * ρ * 10)
@@ -226,15 +225,14 @@ const LabCalc = {
     const values = this.validateInputs("conv-w-to-gamma", "conv-rho-to-gamma");
     if (!values) return;
 
-    const [w, rho] = values;
+    try {
+      const [w, rho] = values;
+      const gamma = this.core.convertWToGamma(w, rho);
 
-    if (w > 100) {
-      this.showError("Mass percent cannot exceed 100%");
-      return;
+      this.updateResult("#res-w-to-gamma .output", gamma.toFixed(2));
+    } catch (error) {
+      this.showError(error.message);
     }
-
-    const gamma = w * rho * 10;
-    this.updateResult("#res-w-to-gamma .output", gamma.toFixed(2));
   },
 
   //  COPY FUNCTIONALITY

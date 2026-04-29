@@ -10,15 +10,15 @@ A high-precision web application designed for chemists, researchers, and student
 
 As a **Master of Organic Chemistry**, I engineered this tool to replace manual calculations and prone-to-error spreadsheets.
 
-- **Scientific Integrity:** Developed using standard IUPAC notation, including correct lowercase symbols for mass concentration ($\gamma$) and mass fraction ($\omega$).
+- **Scientific Integrity:** Developed using standard IUPAC notation, including correct lowercase symbols for mass concentration (γ) and mass fraction (ω).
 - **Precision First:** Implements 4-decimal precision for molar calculations, mirroring the sensitivity of analytical balances.
 
 ## 🌟 Features
 
-- **Molarity Calculator:** Calculate required mass for specific molar concentrations with integrated volume unit conversion ($cm^3 \leftrightarrow dm^3$).
+- **Molarity Calculator:** Calculate required mass for specific molar concentrations (c) with integrated volume unit conversion (cm³ ↔ dm³).
 - **Mass Percent Hub:** Effortlessly determine the mass of both solute and solvent for percentage-based solutions.
-- **Dilution Engine:** Practical $c_1V_1 = c_2V_2$ logic that automatically calculates the exact volume of stock solution and the required amount of water to add.
-- **Professional Conversions:** Advanced conversion cards for switching between $c$, $\gamma$, and $\omega$, accounting for density ($\rho$) and molar mass ($M$).
+- **Dilution Engine:** Practical c₁V₁ = c₂V₂ logic that automatically calculates the exact volume of stock solution and the required amount of water to add.
+- **Professional Conversions:** Advanced conversion cards for switching between c, γ, and ω, accounting for density (ρ) and molar mass (M).
 - **One-Click Copy:** Integrated clipboard functionality with smart formatting (📋 icon) for quick data transfer to lab notebooks.
 - **Minimalist Lab UI:** A clean, distraction-free interface optimized for use in laboratory environments with a strict focus on scientific notation.
 - **Intelligent Feedback System:** Custom "Toast" notification system for real-time error reporting and successful action confirmations (e.g., Copy to Clipboard).
@@ -26,7 +26,7 @@ As a **Master of Organic Chemistry**, I engineered this tool to replace manual c
 ## 🛠️ Tech Stack
 
 - **HTML5:** Semantic structure with a focus on logical input flow and accessibility.
-- **CSS3:** Modern minimalist design using **CSS Variables**, Flexbox, and **Strict Text Transformation** rules to preserve lowercase scientific symbols ($\gamma$, $\omega$).
+- **CSS3:** Modern minimalist design using **CSS Variables**, Flexbox, and **Strict Text Transformation** rules to preserve lowercase scientific symbols (γ, ω).
 - **JavaScript (ES6+):**
   - **State Management:** Implemented using a central `LabCalc` object to manage application state and logic.
   - **Event Delegation:** Optimized performance by handling interactions through dynamic event listeners.
@@ -47,7 +47,7 @@ This project demonstrates proficiency in:
 
 This project is under continuous development. Upcoming features include:
 
-- [ ] **Unit Testing:** Implementing a custom test suite to verify calculation accuracy against standard chemical benchmarks.
+- [x] **Unit Testing:** Jest test suite implemented to verify calculation accuracy for core formulas.
 - [ ] **Authentication:** Integration with **Firebase Auth** to allow users to save and retrieve their custom solution recipes.
 - [ ] **History Log:** A persistent record of recent calculations for experimental reproducibility.
 
@@ -56,6 +56,19 @@ This project is under continuous development. Upcoming features include:
 1. Clone the repository or download the source code.
 2. Open `index.html` in any modern web browser.
 3. Choose your calculation tab and start preparing your solutions with 100% confidence.
+
+## 🧪 Testing
+
+This project uses **Jest** for unit testing to ensure calculation accuracy.
+
+**Setup & Run Tests:**
+
+```bash
+npm install
+npm test
+```
+
+Tests verify the core calculation logic across molarity, dilution, mass percent, and concentration conversion functions.
 
 ---
 

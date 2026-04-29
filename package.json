@@ -1,0 +1,16 @@
+{
+  "name": "lab-calc",
+  "version": "1.0.0",
+  "description": "![LabCalc Screenshot](./screenshot.png)",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^30.3.0"
+  }
+}
