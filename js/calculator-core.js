@@ -27,9 +27,14 @@ function calculateMolarityMass(c, v, m, unit) {
 
 function calculateMassPercent(w, mr) {
   validateInputs(w, mr);
-  if (w > 100) throw new Error("Mass percent cannot exceed 100%.");
+
+  if (w > 100) {
+    throw new Error("Mass percent cannot exceed 100%.");
+  }
+
   const ms = (w / 100) * mr;
   const mw = mr - ms;
+
   return { ms, mw };
 }
 
