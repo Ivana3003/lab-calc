@@ -6,7 +6,6 @@
 // State management
 const LabCalc = {
   core: null,
-  currentTab: "molarity",
   // Initialize app
   init() {
     this.core = window.CalculatorCore;
