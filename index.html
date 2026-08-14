@@ -18,10 +18,11 @@
         <p>Professional Chemistry Tool</p>
       </header>
 
-      <!-- Error Toast Container -->
+      <!-- Status -->
       <div id="error-toast" class="error-toast hidden"></div>
 
-      <nav class="tabs" role="tablist" aria-label="Calculator sections">
+      <!-- Navigation -->
+      <nav>
         <button
           class="tab-link active"
           data-tab="molarity"
@@ -292,6 +293,22 @@
           </div>
         </div>
       </section>
+      <!-- History -->
+      <aside class="history-panel" aria-live="polite">
+        <div class="history-header">
+          <h2>Recent calculations</h2>
+          <button
+            type="button"
+            id="clear-history-btn"
+            class="clear-history-btn"
+          >
+            Clear
+          </button>
+        </div>
+        <ul id="history-list" class="history-list">
+          <li class="history-empty">No recent calculations yet.</li>
+        </ul>
+      </aside>
     </main>
 
     <script src="js/calculator-core.js"></script>
