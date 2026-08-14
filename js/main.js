@@ -6,7 +6,8 @@
 // State management
 const LabCalc = {
   core: null,
-  // Initialize app
+  history: [],
+
   init() {
     this.core = window.CalculatorCore;
 
@@ -15,8 +16,10 @@ const LabCalc = {
       return;
     }
 
+    this.loadHistory();
     this.setupEventListeners();
     this.setupKeyboardShortcuts();
+    this.renderHistory();
   },
 
   // Setup all event listeners
@@ -38,6 +41,9 @@ const LabCalc = {
         this.copyValue(targetId, e.currentTarget);
       });
     });
+
+    const clearHistoryBtn = document.getElementById("clear-history-btn");
+    clearHistoryBtn?.addEventListener("click", () => this.clearHistory());
   },
 
   // Keyboard shortcuts
@@ -135,6 +141,101 @@ const LabCalc = {
     }
   },
 
+  loadHistory() {
+    try {
+      const saved = localStorage.getItem("labcalc-history");
+      this.history = saved ? JSON.parse(saved) : [];
+    } catch (error) {
+      this.history = [];
+    }
+  },
+
+  saveHistory(entry) {
+    const item = {
+      id: Date.now() + Math.random(),
+      ...entry,
+    };
+
+    this.history = [item, ...this.history].slice(0, 6);
+
+    try {
+      localStorage.setItem("labcalc-history", JSON.stringify(this.history));
+    } catch (error) {
+      this.showError("Unable to save calculation history.");
+    }
+
+    this.renderHistory();
+  },
+
+  clearHistory() {
+    this.history = [];
+    try {
+      localStorage.removeItem("labcalc-history");
+    } catch (error) {
+      // ignore storage issues and keep UI consistent
+    }
+    this.renderHistory();
+  },
+
+  renderHistory() {
+    const list = document.getElementById("history-list");
+    if (!list) return;
+
+    if (!this.history.length) {
+      list.innerHTML =
+        '<li class="history-empty">No recent calculations yet.</li>';
+      return;
+    }
+
+    list.innerHTML = this.history
+      .map(
+        (item) => `
+          <li class="history-item">
+            <button type="button" class="history-entry" data-history-id="${item.id}">
+              <span class="history-title">${item.label}</span>
+              <span class="history-value">${item.summary}</span>
+            </button>
+          </li>
+        `,
+      )
+      .join("");
+
+    list.querySelectorAll(".history-entry").forEach((button) => {
+      button.addEventListener("click", () => {
+        this.restoreHistoryEntry(Number(button.dataset.historyId));
+      });
+    });
+  },
+
+  restoreHistoryEntry(historyId) {
+    const entry = this.history.find((item) => item.id === historyId);
+    if (!entry) return;
+
+    Object.entries(entry.values).forEach(([fieldId, value]) => {
+      const field = document.getElementById(fieldId);
+      if (field) {
+        field.value = value;
+      }
+    });
+
+    const tabMap = {
+      molarity: "molarity",
+      "mass-percent": "mass-percent",
+      dilution: "dilution",
+      "c-to-gamma": "conversions",
+      "w-to-c": "conversions",
+      "w-to-gamma": "conversions",
+    };
+
+    const targetTab = tabMap[entry.calcType];
+    if (targetTab) {
+      const tabButton = document.querySelector(`[data-tab="${targetTab}"]`);
+      if (tabButton) {
+        tabButton.click();
+      }
+    }
+  },
+
   // CALCULATIONS
 
   // 1. Molarity: m = c * V * M
@@ -148,6 +249,17 @@ const LabCalc = {
       const mass = this.core.calculateMolarityMass(c, v, m, unit);
 
       this.updateResult("#res-molarity .output", mass);
+      this.saveHistory({
+        label: "Molarity",
+        summary: `${mass.toFixed(4)} g`,
+        calcType: "molarity",
+        values: {
+          "mol-c": c,
+          "mol-v": v,
+          "mol-v-unit": unit,
+          "mol-m": m,
+        },
+      });
     } catch (error) {
       this.showError(error.message);
     }
@@ -164,6 +276,15 @@ const LabCalc = {
 
       this.updateResult("#res-percent .output-s", ms);
       this.updateResult("#res-percent .output-w", mw);
+      this.saveHistory({
+        label: "Mass %",
+        summary: `${ms.toFixed(4)} g solute`,
+        calcType: "mass-percent",
+        values: {
+          "perc-w": w,
+          "perc-mr": mr,
+        },
+      });
     } catch (error) {
       this.showError(error.message);
     }
@@ -181,6 +302,17 @@ const LabCalc = {
 
       this.updateResult("#res-dilution .output-v1", v1.toFixed(2));
       this.updateResult("#res-dilution .output-water", vWater.toFixed(2));
+      this.saveHistory({
+        label: "Dilution",
+        summary: `${v1.toFixed(2)} cm³ stock`,
+        calcType: "dilution",
+        values: {
+          "dil-c1": c1,
+          "dil-c2": c2,
+          "dil-v2": v2,
+          "dil-v2-unit": unitV2,
+        },
+      });
     } catch (error) {
       this.showError(error.message);
     }
