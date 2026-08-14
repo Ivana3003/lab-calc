@@ -328,6 +328,15 @@ const LabCalc = {
       const gamma = this.core.convertCToGamma(c, m);
 
       this.updateResult("#res-gamma .output", gamma.toFixed(2));
+      this.saveHistory({
+        label: "c → γ",
+        summary: `${gamma.toFixed(2)} g/dm³`,
+        calcType: "c-to-gamma",
+        values: {
+          "conv-c": c,
+          "conv-m-mass": m,
+        },
+      });
     } catch (error) {
       this.showError(error.message);
     }
@@ -347,6 +356,16 @@ const LabCalc = {
       const c = this.core.convertWToC(w, rho, m);
 
       this.updateResult("#res-w-to-c .output", c);
+      this.saveHistory({
+        label: "ω → c",
+        summary: `${c.toFixed(4)} mol/dm³`,
+        calcType: "w-to-c",
+        values: {
+          "conv-w-to-c": w,
+          "conv-rho-to-c": rho,
+          "conv-m-molar": m,
+        },
+      });
     } catch (error) {
       this.showError(error.message);
     }
@@ -362,6 +381,15 @@ const LabCalc = {
       const gamma = this.core.convertWToGamma(w, rho);
 
       this.updateResult("#res-w-to-gamma .output", gamma.toFixed(2));
+      this.saveHistory({
+        label: "ω → γ",
+        summary: `${gamma.toFixed(2)} g/dm³`,
+        calcType: "w-to-gamma",
+        values: {
+          "conv-w-to-gamma": w,
+          "conv-rho-to-gamma": rho,
+        },
+      });
     } catch (error) {
       this.showError(error.message);
     }
