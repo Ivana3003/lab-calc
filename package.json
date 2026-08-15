@@ -1,14 +1,19 @@
 {
   "name": "lab-calc",
   "version": "1.0.0",
-  "description": "![LabCalc Screenshot](./screenshot.png)",
-  "main": "index.js",
+  "description": "Browser-based chemistry calculator for solution preparation and unit conversion.",
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "chemistry",
+    "calculator",
+    "laboratory",
+    "molarity",
+    "javascript"
+  ],
+  "author": "Ivana Tatić",
   "license": "ISC",
   "devDependencies": {
     "jest": "^30.3.0"
