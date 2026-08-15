@@ -19,45 +19,68 @@
       </header>
 
       <!-- Status -->
-      <div id="error-toast" class="error-toast hidden"></div>
+      <div
+        id="error-toast"
+        class="error-toast hidden"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+      ></div>
 
       <!-- Navigation -->
-      <nav>
+      <nav role="tablist" aria-label="Calculator types">
         <button
           class="tab-link active"
           data-tab="molarity"
+          id="tab-molarity"
           role="tab"
           aria-selected="true"
+          aria-controls="molarity"
+          tabindex="0"
         >
           Molarity
         </button>
         <button
           class="tab-link"
           data-tab="mass-percent"
+          id="tab-mass-percent"
           role="tab"
           aria-selected="false"
+          aria-controls="mass-percent"
+          tabindex="-1"
         >
           Mass %
         </button>
         <button
           class="tab-link"
           data-tab="dilution"
+          id="tab-dilution"
           role="tab"
           aria-selected="false"
+          aria-controls="dilution"
+          tabindex="-1"
         >
           Dilution
         </button>
         <button
           class="tab-link"
           data-tab="conversions"
+          id="tab-conversions"
           role="tab"
           aria-selected="false"
+          aria-controls="conversions"
+          tabindex="-1"
         >
           Conversions
         </button>
       </nav>
 
-      <section id="molarity" class="tab-content active" role="tabpanel">
+      <section
+        id="molarity"
+        class="tab-content active"
+        role="tabpanel"
+        aria-labelledby="tab-molarity"
+      >
         <form class="calc-form" data-calc="molarity">
           <div class="input-group">
             <label for="mol-c">Concentration (c) [mol/dm³]</label>
@@ -92,7 +115,13 @@
         </div>
       </section>
 
-      <section id="mass-percent" class="tab-content" role="tabpanel">
+      <section
+        id="mass-percent"
+        class="tab-content"
+        role="tabpanel"
+        aria-labelledby="tab-mass-percent"
+        hidden
+      >
         <form class="calc-form" data-calc="mass-percent">
           <div class="input-group">
             <label for="perc-w">Mass Percent (ω) [%]</label>
@@ -143,7 +172,13 @@
         </div>
       </section>
 
-      <section id="dilution" class="tab-content" role="tabpanel">
+      <section
+        id="dilution"
+        class="tab-content"
+        role="tabpanel"
+        aria-labelledby="tab-dilution"
+        hidden
+      >
         <form class="calc-form" data-calc="dilution">
           <div class="input-group">
             <label for="dil-c1">Stock Concentration (c1)</label>
@@ -191,7 +226,13 @@
         </div>
       </section>
 
-      <section id="conversions" class="tab-content" role="tabpanel">
+      <section
+        id="conversions"
+        class="tab-content"
+        role="tabpanel"
+        aria-labelledby="tab-conversions"
+        hidden
+      >
         <div class="conv-card">
           <h4>molar (c) ↔ mass concentration (γ)</h4>
           <form class="calc-form" data-calc="c-to-gamma">

@@ -27,6 +27,23 @@ const LabCalc = {
     // Tab navigation
     document.querySelectorAll(".tab-link").forEach((tab) => {
       tab.addEventListener("click", (e) => this.handleTabClick(e));
+      tab.addEventListener("keydown", (e) => {
+        const tabs = [...document.querySelectorAll(".tab-link")];
+        const currentIndex = tabs.indexOf(e.currentTarget);
+        let nextIndex;
+
+        if (e.key === "ArrowRight") {
+          nextIndex = (currentIndex + 1) % tabs.length;
+        } else if (e.key === "ArrowLeft") {
+          nextIndex = (currentIndex - 1 + tabs.length) % tabs.length;
+        }
+
+        if (nextIndex !== undefined) {
+          e.preventDefault();
+          tabs[nextIndex].click();
+          tabs[nextIndex].focus();
+        }
+      });
     });
 
     // Form submissions
@@ -83,17 +100,22 @@ const LabCalc = {
     // Remove active from all
     document.querySelectorAll(".tab-content").forEach((content) => {
       content.classList.remove("active");
+      content.hidden = true;
     });
 
     document.querySelectorAll(".tab-link").forEach((tab) => {
       tab.classList.remove("active");
       tab.setAttribute("aria-selected", "false");
+      tab.setAttribute("tabindex", "-1");
     });
 
     // Add active to selected
-    document.getElementById(targetTab)?.classList.add("active");
+    const selectedPanel = document.getElementById(targetTab);
+    selectedPanel?.classList.add("active");
+    if (selectedPanel) selectedPanel.hidden = false;
     event.currentTarget.classList.add("active");
     event.currentTarget.setAttribute("aria-selected", "true");
+    event.currentTarget.setAttribute("tabindex", "0");
   },
 
   // Form submission router
