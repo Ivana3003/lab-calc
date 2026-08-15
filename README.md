@@ -4,11 +4,13 @@
 
 ![LabCalc Screenshot](./screenshot.png)
 
-A high-precision web application designed for chemists, researchers, and students to automate complex laboratory calculations and ensure accuracy in solution preparation.
+A browser-based chemistry calculator designed for students, researchers, and laboratory workflows. It helps automate common solution-preparation calculations while keeping the formulas and input flow easy to inspect.
+
+**Status:** Completed front-end prototype. No build process or backend is required to run the application.
 
 ## 🔬 The Intersection of Chemistry & Code
 
-As a **Master of Organic Chemistry**, I engineered this tool to replace manual calculations and prone-to-error spreadsheets.
+As a **Master of Organic Chemistry**, I built this tool to reduce repetitive manual calculations and make solution preparation more consistent.
 
 - **Scientific Integrity:** Developed using standard IUPAC notation, including correct lowercase symbols for mass concentration (γ) and mass fraction (ω).
 - **Precision First:** Implements 4-decimal precision for molar calculations, mirroring the sensitivity of analytical balances.
@@ -48,9 +50,9 @@ This project demonstrates proficiency in:
 3. **UI/UX for Specialized Tools:** Creating a professional tool that prioritizes clarity and speed, avoiding unnecessary "bloat".
 4. **Scientific Accuracy:** Maintaining strict adherence to international scientific standards in software naming and notation.
 
-## 🚀 Roadmap
+## ✅ Current Status
 
-This project is under continuous development. The current release includes:
+The current release includes:
 
 - [x] **Unit Testing:** Jest test suite implemented to verify calculation accuracy for core formulas.
 - [x] **Calculation History:** Persistent recent-calculation panel with restore and clear-history actions.
@@ -63,11 +65,13 @@ This project is under continuous development. The current release includes:
 
 1. Clone the repository or download the source code.
 2. Open `index.html` in any modern web browser.
-3. Choose your calculation tab and start preparing your solutions with 100% confidence.
+3. Choose a calculation tab and enter the required values.
+
+No build step or development server is required. Node.js is only needed for running the Jest test suite.
 
 ## 🧪 Testing
 
-This project uses **Jest** for unit testing to ensure calculation accuracy.
+This project uses **Jest** and Node.js for unit testing the calculation layer.
 
 **Setup & Run Tests:**
 
@@ -76,7 +80,13 @@ npm install
 npm test
 ```
 
-Tests verify the core calculation logic across molarity, dilution, mass percent, and concentration conversion functions.
+Tests verify the core mathematical logic across molarity, dilution, mass percent, and concentration conversion functions. They do not replace browser-based checks of the complete UI, persistence, or accessibility interactions.
+
+## ⚠️ Limitations
+
+- The application is a static front-end project with no backend, database, or authentication layer.
+- Recent calculation history is stored only in the browser's `localStorage` and is not synchronized across devices or users.
+- Jest covers the core calculation functions; full end-to-end browser automation is not currently included.
 
 ---
 
