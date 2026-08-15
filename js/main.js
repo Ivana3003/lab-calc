@@ -300,11 +300,11 @@ const LabCalc = {
       const unitV2 = document.getElementById("dil-v2-unit").value;
       const { v1, vWater } = this.core.calculateDilution(c1, c2, v2, unitV2);
 
-      this.updateResult("#res-dilution .output-v1", v1.toFixed(2));
-      this.updateResult("#res-dilution .output-water", vWater.toFixed(2));
+      this.updateResult("#res-dilution .output-v1", v1);
+      this.updateResult("#res-dilution .output-water", vWater);
       this.saveHistory({
         label: "Dilution",
-        summary: `${v1.toFixed(2)} cm³ stock`,
+        summary: `${v1.toFixed(4)} cm³ stock`,
         calcType: "dilution",
         values: {
           "dil-c1": c1,
@@ -327,10 +327,10 @@ const LabCalc = {
       const [c, m] = values;
       const gamma = this.core.convertCToGamma(c, m);
 
-      this.updateResult("#res-gamma .output", gamma.toFixed(2));
+      this.updateResult("#res-gamma .output", gamma);
       this.saveHistory({
         label: "c → γ",
-        summary: `${gamma.toFixed(2)} g/dm³`,
+        summary: `${gamma.toFixed(4)} g/dm³`,
         calcType: "c-to-gamma",
         values: {
           "conv-c": c,
@@ -380,10 +380,10 @@ const LabCalc = {
       const [w, rho] = values;
       const gamma = this.core.convertWToGamma(w, rho);
 
-      this.updateResult("#res-w-to-gamma .output", gamma.toFixed(2));
+      this.updateResult("#res-w-to-gamma .output", gamma);
       this.saveHistory({
         label: "ω → γ",
-        summary: `${gamma.toFixed(2)} g/dm³`,
+        summary: `${gamma.toFixed(4)} g/dm³`,
         calcType: "w-to-gamma",
         values: {
           "conv-w-to-gamma": w,
