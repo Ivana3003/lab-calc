@@ -1,3 +1,5 @@
+"use strict";
+
 /**
  * LabCalc - Central Logic Hub
  * Modern ES6+ approach with event delegation and proper error handling

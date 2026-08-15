@@ -1,3 +1,5 @@
+"use strict";
+
 const UNITS = {
   CM3_TO_DM3: 1000,
 };
