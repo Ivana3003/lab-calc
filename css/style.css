@@ -123,6 +123,38 @@ header p {
   margin-bottom: 1.2rem;
 }
 
+.preset-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: -0.25rem 0 1rem;
+}
+
+.preset-label {
+  color: var(--primary);
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-right: 2px;
+}
+
+.preset-btn {
+  width: auto;
+  padding: 6px 10px;
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid var(--border);
+  font-size: 0.8rem;
+  box-shadow: none;
+}
+
+.preset-btn:hover {
+  background: rgba(52, 152, 219, 0.1);
+  color: var(--primary);
+  transform: none;
+  box-shadow: none;
+}
+
 label {
   display: block;
   font-size: 0.9rem;

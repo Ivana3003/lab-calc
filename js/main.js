@@ -42,8 +42,26 @@ const LabCalc = {
       });
     });
 
+    document.querySelectorAll(".preset-btn").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        this.applyMassPercentPreset(e.currentTarget.dataset.preset);
+      });
+    });
+
     const clearHistoryBtn = document.getElementById("clear-history-btn");
     clearHistoryBtn?.addEventListener("click", () => this.clearHistory());
+  },
+
+  applyMassPercentPreset(preset) {
+    const [percent, mass] = preset.split("-");
+    const percentInput = document.getElementById("perc-w");
+    const massInput = document.getElementById("perc-mr");
+
+    if (!percentInput || !massInput) return;
+
+    percentInput.value = percent;
+    massInput.value = mass;
+    percentInput.focus();
   },
 
   // Keyboard shortcuts
