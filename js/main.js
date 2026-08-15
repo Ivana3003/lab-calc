@@ -140,24 +140,36 @@ const LabCalc = {
   // Error display
   showError(message) {
     const toast = document.getElementById("error-toast");
+    const rawMessage = message instanceof Error ? message.message : message;
+    const errorMessage =
+      typeof rawMessage === "string" && rawMessage.trim()
+        ? rawMessage
+        : "Something went wrong. Please check your input and try again.";
+
     if (toast) {
-      toast.textContent = message;
+      toast.textContent = errorMessage;
       toast.classList.remove("hidden");
 
       setTimeout(() => {
         toast.classList.add("hidden");
       }, 3000);
     } else {
-      // Fallback to alert if toast element doesn't exist
-      alert(message);
+      alert(errorMessage);
     }
   },
 
   // Input validation helper
   validateInputs(...inputs) {
-    const values = inputs.map((id) =>
-      parseFloat(document.getElementById(id).value),
-    );
+    const fields = inputs.map((id) => document.getElementById(id));
+
+    if (fields.some((field) => !field)) {
+      this.showError(
+        "Calculator input is unavailable. Please reload the page.",
+      );
+      return null;
+    }
+
+    const values = fields.map((field) => parseFloat(field.value));
 
     if (values.some((v) => isNaN(v))) {
       this.showError("Please fill in all required fields");
