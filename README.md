@@ -32,7 +32,7 @@ As a **Master of Organic Chemistry**, I built this tool to reduce repetitive man
 ## 🛠️ Tech Stack
 
 - **HTML5:** Semantic structure with a focus on logical input flow and accessibility.
-- **CSS3:** Modern minimalist design using **CSS Variables**, Flexbox, and **Strict Text Transformation** rules to preserve lowercase scientific symbols (γ, ω).
+- **CSS3:** Modern minimalist design using **CSS Variables**, Flexbox, and consistent styling for scientific symbols (γ, ω).
 - **JavaScript (ES6+):**
   - **State Management:** Implemented using a central `LabCalc` object to manage application state and logic.
   - **Event Delegation:** Optimized performance by handling interactions through dynamic event listeners.
