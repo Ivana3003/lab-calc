@@ -6,6 +6,8 @@
 
 A browser-based chemistry calculator designed for students, researchers, and laboratory workflows. It helps automate common solution-preparation calculations while keeping the formulas and input flow easy to inspect.
 
+[Live Demo](https://it-lab-calc.netlify.app/) · [Repository](https://github.com/Ivana3003/lab-calc)
+
 **Status:** Completed front-end prototype. No build process or backend is required to run the application.
 
 ## 🔬 The Intersection of Chemistry & Code
