@@ -116,11 +116,14 @@ header p {
 }
 
 .calc-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
   margin-bottom: 1rem;
 }
 
 .input-group {
-  margin-bottom: 1.2rem;
+  margin-bottom: 0;
 }
 
 .preset-row {
@@ -226,7 +229,7 @@ button:focus-visible {
 }
 
 .result-mini {
-  margin-top: 10px;
+  margin-top: 0;
 }
 
 .output,
@@ -265,6 +268,9 @@ button:focus-visible {
 
 /* 6. Conversion Cards */
 .conv-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
   background: #f9f9f9;
   padding: 15px;
   border-radius: var(--radius);
@@ -272,9 +278,13 @@ button:focus-visible {
   border-left: 4px solid var(--accent);
 }
 
+.conv-card .calc-form {
+  margin-bottom: 0;
+}
+
 .conv-card h4 {
   font-size: 0.95rem;
-  margin-bottom: 12px;
+  margin-bottom: 0;
   color: var(--primary);
 }
 
